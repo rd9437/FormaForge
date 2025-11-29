@@ -37,10 +37,11 @@ export async function login(request: Request, response: Response): Promise<void>
 
 export async function logout(request: Request, response: Response): Promise<void> {
   const isProduction = env.NODE_ENV === "production";
+  const sameSite: "strict" | "none" | "lax" | boolean | undefined = isProduction ? "none" : "lax";
   response.clearCookie("token", {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? "none" : "lax"
+    sameSite
   });
   response.status(200).json({ success: true });
 }
