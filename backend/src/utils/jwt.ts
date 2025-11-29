@@ -14,7 +14,7 @@ export function createAuthCookie(token: string) {
     options: {
       httpOnly: true,
       secure: isProduction,
-      sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
+      sameSite: isProduction ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000
     }
   };
