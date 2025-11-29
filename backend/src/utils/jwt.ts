@@ -6,13 +6,15 @@ export function signToken(payload: Record<string, unknown>, options?: jwt.SignOp
 }
 
 export function createAuthCookie(token: string) {
+  const isProduction = env.NODE_ENV === "production";
+
   return {
     name: "token",
     value: token,
     options: {
       httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "lax" as const,
+      secure: isProduction,
+      sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000
     }
   };
