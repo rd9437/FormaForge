@@ -1,0 +1,45 @@
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 4rem);
+  background: linear-gradient(140deg, #e2e8f0 0%, #c7d2fe 45%, #ede9fe 100%);
+  overflow: hidden;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.2), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(236, 72, 153, 0.18), transparent 60%),
+    radial-gradient(circle at 50% 80%, rgba(45, 212, 191, 0.22), transparent 65%);
+  filter: blur(6rem);
+  opacity: 0.8;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.switchPrompt {
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.switchPrompt a {
+  color: #1d4ed8;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switchPrompt a:hover {
+  text-decoration: underline;
+}
