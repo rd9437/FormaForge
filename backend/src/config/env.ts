@@ -12,7 +12,15 @@ const envSchema = z.object({
   CLOUDINARY_API_SECRET: z.string().min(1, "CLOUDINARY_API_SECRET is required"),
   CLOUDINARY_CLOUD_NAME: z.string().min(1, "CLOUDINARY_CLOUD_NAME is required"),
   CLOUDINARY_UPLOAD_PRESET: z.string().optional(),
-  CORS_ORIGIN: z.string().optional()
+  CORS_ORIGIN: z
+    .string()
+    .transform((value) =>
+      value
+        .split(",")
+        .map((entry) => entry.trim())
+        .filter(Boolean)
+    )
+    .optional()
 });
 
 export const env = envSchema.parse(process.env);
