@@ -7,6 +7,7 @@ export function signToken(payload: Record<string, unknown>, options?: jwt.SignOp
 
 export function createAuthCookie(token: string) {
   const isProduction = env.NODE_ENV === "production";
+  const sameSite: "strict" | "none" | "lax" | boolean | undefined = isProduction ? "none" : "lax";
 
   return {
     name: "token",
@@ -14,7 +15,7 @@ export function createAuthCookie(token: string) {
     options: {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
+      sameSite,
       maxAge: 7 * 24 * 60 * 60 * 1000
     }
   };
