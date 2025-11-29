@@ -13,9 +13,11 @@ import { logger } from "./utils/logger.js";
 const app = express();
 
 app.use(helmet());
+const corsOrigins = Array.isArray(env.CORS_ORIGIN) && env.CORS_ORIGIN.length > 0 ? env.CORS_ORIGIN : [/localhost/, /127\.0\.0\.1/];
+
 app.use(
   cors({
-    origin: env.CORS_ORIGIN ?? [/localhost/, /127\.0\.0\.1/],
+    origin: corsOrigins,
     credentials: true
   })
 );
