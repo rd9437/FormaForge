@@ -20,6 +20,7 @@ const envSchema = z.object({
         .map((entry) => entry.trim())
         .filter(Boolean)
     )
+    .or(z.array(z.string()))
     .optional()
 });
 
