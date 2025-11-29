@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { z } from "zod";
 import { registerUser, authenticateUser, createSessionToken } from "../services/auth-service.js";
 import { createAuthCookie } from "../utils/jwt.js";
+import { env } from "../config/env.js";
 
 const registerSchema = z.object({
   email: z.string().email(),
@@ -35,7 +36,12 @@ export async function login(request: Request, response: Response): Promise<void>
 }
 
 export async function logout(request: Request, response: Response): Promise<void> {
-  response.clearCookie("token");
+  const isProduction = env.NODE_ENV === "production";
+  response.clearCookie("token", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax"
+  });
   response.status(200).json({ success: true });
 }
 
